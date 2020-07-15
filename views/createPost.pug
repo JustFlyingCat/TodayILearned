@@ -5,10 +5,10 @@ block content
     form(method="post")
         label(for="headline") Headline:
         br
-        input(type="text" id="headline" name="headline")
+        textarea(name="headline", cols="64", rows="1", maxlength="64")
         br
         label(for="content") Content:
         br
-        input(type="text" id="content" name="content")
+        textarea(name="content", cols="64", rows="10")
         br
         input(type="submit" value="Send")
