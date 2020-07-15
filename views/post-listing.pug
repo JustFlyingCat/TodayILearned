@@ -7,8 +7,5 @@ block content
     ul
       each val in list
         li
-          if val.userName
-            a(href='/users/' + val.userName) #{val.userName}
-          else if val.headLine
             a(href='/posts/' + val.userId + '-' + val.id) #{val.headLine} 
-            p created at: #{val.createdAt}
+            p created by #[a(href='/users/' + val.user.userName) #{val.user.userName}] at: #{val.createdAt}
