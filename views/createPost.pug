@@ -2,7 +2,7 @@ extends layout
 
 block content
     h1 Create Post
-    form(action="/post/create/this" method="post")
+    form(method="post")
         label(for="headline") Headline:
         br
         input(type="text" id="headline" name="headline")

@@ -9,6 +9,6 @@ block content
         li
           if val.userName
             a(href='/users/' + val.userName) #{val.userName}
-          else if val.headLine
-            a(href='/posts/' + val.userId + '-' + val.id) #{val.headLine} 
+          else if val.headline
+            a(href='/posts/' + val.userId + '-' + val.id) #{val.headline} 
             p created at: #{val.createdAt}

@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
     return sequelize.define('post', {
-        headLine: {
+        headline: {
             type: DataTypes.STRING(64),
             allowNull: false
         },

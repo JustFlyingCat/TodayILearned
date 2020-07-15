@@ -32,7 +32,7 @@ exports.post = async function (req, res) {
        title = '404 NOT FOUND';
        content = 'The post was not found in the database';
     } else {
-        title = post.headLine;
+        title = post.headline;
         date = post.createdAt;
         userName = post.user.userName;
         content = post.content;
@@ -46,8 +46,8 @@ exports.create = async function(req, res) {
 }
 
 exports.submit = async function(req, res) {
-    console.log('###################\n##############################\n' + req.headline + req.content)
-    res.redirect('/post');
+    const post = await Post.create({headline: req.body.headline, content: req.body.content, userId: 1})
+    res.redirect('/posts/' + post.userId + '-' + post.id);
 }
 
 function associate(){
