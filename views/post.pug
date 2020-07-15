@@ -2,6 +2,6 @@ extends layout
 
 block content
   h1= title
-  p= creationDate
+  p from #[a(href='/users/' + user) #{user}] at #{creationDate}
   p= postContent
     
