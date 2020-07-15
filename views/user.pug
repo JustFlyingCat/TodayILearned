@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1= title
+  p= des
+  if list
+    ul
+      each val in list
+        li
+          if val.userName
+            a(href='/users/' + val.userName) #{val.userName}
+          else if val.headLine
+            a(href='/posts/') #{val.headLine} 
+            p created at: #{val.createdAt}
