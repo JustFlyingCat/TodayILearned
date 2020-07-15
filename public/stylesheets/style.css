@@ -2,16 +2,11 @@ body {
   font-family: 'Baloo Da 2', cursive;
 }
 
-.sidebar-nav {
-  margin-top: 20px;
-  padding: 0;
-  list-style: none;
-}
-
 textarea {
   resize: none;
 }
 
+/* header */
 .header {
   background-color: #4287f5;
   overflow: hidden;
@@ -34,4 +29,9 @@ textarea {
 .header a.active {
   background-color: #123c80;
   color: white;
+}
+
+/* account */
+.account {
+  float: right;
 }

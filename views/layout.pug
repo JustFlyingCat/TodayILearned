@@ -13,5 +13,11 @@ html(lang='en')
       a(href='/users' id="AllUsers") All Users
       a(href='/posts' id="AllPosts") All Posts
       a(href='/posts/create' id="CreatePost") Create post
+      div(class="account")
+        if false
+          a(href="/loggout") loggout
+          a(href="/users/" + currentUsername) #{currentUsername}
+        else
+          a(href="/login") login
     div(class="content")
       block content
