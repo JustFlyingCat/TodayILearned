@@ -3,7 +3,7 @@ const sequelize = require('../database/maxtest').createSequelize();
 const users = require('../models/user');
 const posts = require('../models/post');
 const User = users(sequelize, DataTypes);
-const Post = posts(sequelize, DataTypes); 
+const Post = posts(sequelize, DataTypes);  
 
 exports.index = async function (req, res) {
 
@@ -39,6 +39,15 @@ exports.post = async function (req, res) {
         //console.log(userPosts);
     }
     res.render('post',{title: title,user: userName, creationDate: date, postContent: content});
+}
+
+exports.create = async function(req, res) {
+    res.render('createPost', {title: 'Create a Post'})
+}
+
+exports.submit = async function(req, res) {
+    console.log('###################\n##############################\n' + req.headline + req.content)
+    res.redirect('/post');
 }
 
 function associate(){
