@@ -4,21 +4,13 @@ html(lang='en')
     title= title
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    script(rel='' src='/javascripts/header.js')
   body
-    div(class='container-fluid')
-      div(class='row')
-        div(class='col-sm-2')
-          block sidebar
-            ul(class='sidebar-nav')
-              li 
-                a(href='/') Home
-              li 
-                a(href='/users') All Users
-              li 
-                a(href='/posts') All Posts
-                li
-                  a(href='/posts/create') Create post
-        div(class='col-sm-10')
-          block content
+    div(class="header")
+      a(href='/' id="Home") Home
+      a(href='/users' id="AllUsers") All Users
+      a(href='/posts' id="AllPosts") All Posts
+      a(href='/posts/create' id="CreatePost") Create post
+    div(class="content")
+      block content
