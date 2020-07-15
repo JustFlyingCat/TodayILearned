@@ -46,7 +46,11 @@ exports.create = async function(req, res) {
 }
 
 exports.submit = async function(req, res) {
-    const post = await Post.create({headline: req.body.headline, content: req.body.content, userId: 1})
+    associate();
+    // get the test user(current user in the future)
+    const user = await User.findOne({where:{userName: 'the-foo'}});
+
+    const post = await user.createPost({headline: req.body.headline, content: req.body.content})
     res.redirect('/posts/' + post.userId + '-' + post.id);
 }
 
