@@ -13,7 +13,7 @@ textarea {
 }
 
 .header {
-  background-color: #333;
+  background-color: #4287f5;
   overflow: hidden;
 }
 
@@ -27,11 +27,11 @@ textarea {
 }
 
 .header a:hover {
-  background-color: #4CAF50;
+  background-color: #123c80;
   color: black;
 }
 
 .header a.active {
-  background-color: #4CAF50;
+  background-color: #123c80;
   color: white;
 }
