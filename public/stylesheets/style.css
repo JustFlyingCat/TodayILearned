@@ -10,6 +10,7 @@ textarea {
 .header {
   background-color: #4287f5;
   overflow: hidden;
+  margin: -10px;
 }
 
 .header a {
@@ -18,12 +19,11 @@ textarea {
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 20px;
 }
 
 .header a:hover {
-  background-color: #123c80;
-  color: black;
+  background-color: #2A62BB;
 }
 
 .header a.active {
@@ -35,7 +35,19 @@ textarea {
 .account {
   float: right;
 }
-
+/*Error message*/
 .errMessage {
   color: red;
+}
+/*display stuff in the middle of the site*/
+.middle {
+  text-align: center;
+}
+/*post content format*/
+.content {
+  font-size: 20px;
+}
+/*time format*/
+.time {
+  font-size: 12px;
 }

@@ -1,19 +1,20 @@
 extends layout
 
-block content  
-    h1= title
-    p(class="errMessage") #{errMessage}
-    form(method='post')
-        label(for="username") Username:
-        br
-        input(type="text", name="username", size="24", maxlength="16" ,required)
-        br
-        label(for="password") password:
-        br
-        input(type="password", name="password", maxlength="64", size="24", required)
-        br
-        label(for="confPassword") confirm password:
-        br
-        input(type="password", name="confPassword", maxlength="64", size="24", required)
-        br
-        input(type="submit" value="create")
+block content
+    div(class="middle")
+        h1= title
+        p(class="errMessage") #{errMessage}
+        form(method='post')
+            label(for="username") Username:
+            br
+            input(type="text", name="username", size="24", maxlength="16" , required="required", pattern="[A-Za-z0-9]")
+            br
+            label(for="password") password:
+            br
+            input(type="password", name="password", maxlength="64", size="24", required="required")
+            br
+            label(for="confPassword") confirm password:
+            br
+            input(type="password", name="confPassword", maxlength="64", size="24", required="required")
+            br
+            input(type="submit" value="create")

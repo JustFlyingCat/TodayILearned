@@ -1,14 +1,15 @@
 extends layout
 
 block content
-    h1= title
-    form(method="post")
-        label(for="headline") Headline:
-        br
-        textarea(name="headline", cols="64", rows="1", maxlength="64")
-        br
-        label(for="content") Content:
-        br
-        textarea(name="content", cols="64", rows="10")
-        br
-        input(type="submit" value="Send")
+    div(class="middle")
+        h1= title
+        form(method="post")
+            label(for="headline") Headline:
+            br
+            textarea(name="headline", cols="64", rows="1", maxlength="64")
+            br
+            label(for="content") Content:
+            br
+            textarea(name="content", cols="64", rows="10")
+            br
+            input(type="submit" value="Send")

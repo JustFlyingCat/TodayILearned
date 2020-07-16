@@ -7,17 +7,14 @@ const User = users(sequelize, DataTypes);
 const Post = posts(sequelize, DataTypes);  
 
 exports.index = async function (req, res) {
-
     associate();
-
-    Post.findAll({include: User})
-        .then(async function(ans) {
-            const data = await validation.validateCookie(req.cookies.userLogged);
-            res.render('post-listing', {title: 'All Posts', des: 'Total posts: ' + ans.length, list: ans, data: data});
-        })
-        .catch(err => {
-            console.log('BIG GIGANT ERROR: ' + err);
-        });    
+    //Find all posts
+    // include: User
+    const postList = await Post.findAll({order: [["createdAt", "DESC"]], include: User});
+    //validate user
+    const data = await validation.validateCookie(req.cookies.userLogged);
+    //send response
+    res.render('post-listing', {title: 'All Posts', data: data, des: 'Total posts: ' + postList.length, list: postList});
 }
 
 exports.post = async function (req, res) {
@@ -46,15 +43,21 @@ exports.post = async function (req, res) {
 
 exports.create = async function(req, res) {
     const data = await validation.validateCookie(req.cookies.userLogged);
-    res.render('createPost', {title: 'Create a Post', data: data})
+    if(!data.logged) {
+        res.redirect('../login');
+    } else {
+        res.render('createPost', {title: 'Create a Post', data: data});
+    }
 }
 
 exports.submit = async function(req, res) {
     associate();
-    // get the test user(current user in the future)
-    const user = await User.findOne({where:{userName: 'the-foo'}});
-
+    // get the current user
+    const data = await validation.validateCookie(req.cookies.userLogged)
+    const user = await User.findOne({where:{userName: data.currentUsername}});
+    //create the new post
     const post = await user.createPost({headline: req.body.headline, content: req.body.content})
+    //send a response
     res.redirect('/posts/' + post.userId + '-' + post.id);
 }
 

@@ -8,4 +8,4 @@ block content
       each val in list
         li
             a(href='/posts/' + val.userId + '-' + val.id) #{val.headline} 
-            p created by #[a(href='/users/' + val.user.userName) #{val.user.userName}] at: #{val.createdAt}
+            p(class="time") created by #[a(href='/users/' + val.user.userName) #{val.user.userName}] at: #{val.createdAt}

@@ -11,4 +11,4 @@ block content
             a(href='/users/' + val.userName) #{val.userName}
           else if val.headline
             a(href='/posts/' + val.userId + '-' + val.id) #{val.headline} 
-            p created at: #{val.createdAt}
+            p(class="time") created at: #{val.createdAt}

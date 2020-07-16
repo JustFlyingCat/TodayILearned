@@ -13,12 +13,13 @@ html(lang='en')
       a(href='/users' id="AllUsers") All Users
       a(href='/posts' id="AllPosts") All Posts
       a(href='/posts/create' id="CreatePost") Create post
-      div(class="account")
-        if data.logged
-          a(href="/loggout", id="loggout") loggout
-          a(href="/users/" + data.currentUsername, id="userAccount") #{data.currentUsername}
-        else
-          a(href="/createUser", id="createUser") new user
-          a(href="/login", id="login") login
+      if data
+        div(class="account")
+          if data.logged
+            a(href="/loggout", id="loggout") loggout
+            a(href="/users/" + data.currentUsername, id="userAccount") #{data.currentUsername}
+          else
+            a(href="/createUser", id="createUser") new user
+            a(href="/login", id="login") login
     div(class="content")
       block content
