@@ -18,6 +18,7 @@ html(lang='en')
           a(href="/loggout", id="loggout") loggout
           a(href="/users/" + data.currentUsername, id="userAccount") #{data.currentUsername}
         else
+          a(href="/createUser", id="createUser") new user
           a(href="/login", id="login") login
     div(class="content")
       block content
