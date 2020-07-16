@@ -35,3 +35,7 @@ textarea {
 .account {
   float: right;
 }
+
+.errMessage {
+  color: red;
+}

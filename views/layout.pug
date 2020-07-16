@@ -15,9 +15,9 @@ html(lang='en')
       a(href='/posts/create' id="CreatePost") Create post
       div(class="account")
         if false
-          a(href="/loggout") loggout
-          a(href="/users/" + currentUsername) #{currentUsername}
+          a(href="/loggout", id="loggout") loggout
+          a(href="/users/" + currentUsername, id="userAccount") #{currentUsername}
         else
-          a(href="/login") login
+          a(href="/login", id="login") login
     div(class="content")
       block content

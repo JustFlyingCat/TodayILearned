@@ -4,6 +4,7 @@ onload = function() {
     const allUsers = document.getElementById("AllUsers");
     const allPosts = document.getElementById("AllPosts");
     const createPost = document.getElementById("CreatePost");
+    const login = document.getElementById("login");
     const title = document.title;
 
     if (title == 'Today i learned') {
@@ -28,5 +29,11 @@ onload = function() {
         createPost.classList.add('active');
     } else if(createPost.classList.contains('active')){
         createPost.classList.remove('active');
+    }
+
+    if (title == 'login') {
+        login.classList.add('active');
+    } else if(login.classList.contains('active')){
+        login.classList.remove('active');
     }
 }
