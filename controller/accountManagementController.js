@@ -14,10 +14,13 @@ exports.handleLogin = async function(req, res) {
     const userPassword = req.body.password;
 
     if(validation.validate(userName, userPassword)) {
+        //create a date 7 days from creation
         let date = new Date();
-        let futDate = date.getDate() + 14;
+        let futDate = date.getDate() + 7;
         date.setDate(futDate);
+        //get the cookie id from the user logging in
         const cookieId = await validation.getUserCookie(userName, userPassword);
+        //response
         res.cookie('userLogged', cookieId, {httpOnly: true, expires: date});
         res.redirect('/');
     } else {
@@ -40,6 +43,28 @@ exports.createUser = async function(req, res) {
     }
 }
 
-exports.createUserPost = function(req, res) {
-    
+exports.createUserPost = async function(req, res) {
+    const data = {logged: false};
+    const newName = req.body.username;
+    const newPassword = req.body.password;
+    const confPassword = req.body.confPassword;
+
+    if (await User.findOne({where: {userName: newName}})) {
+        res.render('createUser', {title:'Create user', errMessage: 'The Username is already taken', data: data})
+    } else {
+        if(newPassword == confPassword) {
+            //create random cookie value for the user
+            const newCookie = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+            await User.create({userName: newName, password: newPassword, cookieId: newCookie});
+            //creating a date 7 days from now on
+            let date = new Date();
+            let futDate = date.getDate() + 7;
+            date.setDate(futDate);
+            //send a response after the user was created
+            res.cookie('userLogged', newCookie, {httpOnly: true, expires: date});
+            res.redirect('/users/' + newName);
+        } else {
+            res.render('createUser', {title:'Create user', errMessage: 'The passwords did not match', data: data})
+        }
+    }
 }
