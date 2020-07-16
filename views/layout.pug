@@ -14,9 +14,9 @@ html(lang='en')
       a(href='/posts' id="AllPosts") All Posts
       a(href='/posts/create' id="CreatePost") Create post
       div(class="account")
-        if false
+        if data.logged
           a(href="/loggout", id="loggout") loggout
-          a(href="/users/" + currentUsername, id="userAccount") #{currentUsername}
+          a(href="/users/" + data.currentUsername, id="userAccount") #{data.currentUsername}
         else
           a(href="/login", id="login") login
     div(class="content")

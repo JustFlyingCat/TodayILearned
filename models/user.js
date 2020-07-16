@@ -9,6 +9,10 @@ module.exports = function(sequelize, DataTypes) {
         password: {
             type: DataTypes.STRING(64),
             allowNull: false
+        },
+        cookieId: {
+            type: DataTypes.UUID,
+            unique: true
         }
     });
 }

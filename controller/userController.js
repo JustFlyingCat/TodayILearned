@@ -8,7 +8,7 @@ const Post = posts(sequelize, DataTypes);
 exports.index = async function (req, res) {
     User.findAll()
         .then(ans => {
-            res.render('user', {title: 'All Users', des: 'Total registered users: ' + ans.length, list: ans});
+            res.render('user', {title: 'All Users', des: 'Total registered users: ' + ans.length, list: ans, data: validation.validateCookie(req.cookies.userLogged)});
         })
         .catch(err => {
             console.log('BIG GIGANT ERROR: ' + err);
@@ -37,5 +37,5 @@ exports.user = async function (req, res) {
         list = userPosts;
         //console.log(userPosts);
     }
-    res.render('user',{title: title, des: ans, list: list});
+    res.render('user',{title: title, des: ans, list: list, data: validation.validateCookie(req.cookies.userLogged)});
 }

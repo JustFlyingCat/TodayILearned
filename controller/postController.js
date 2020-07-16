@@ -11,7 +11,7 @@ exports.index = async function (req, res) {
 
     Post.findAll({include: User})
         .then(ans => {
-            res.render('post-listing', {title: 'All Posts', des: 'Total posts: ' + ans.length, list: ans});
+            res.render('post-listing', {title: 'All Posts', des: 'Total posts: ' + ans.length, list: ans, data: validation.validateCookie(req.cookies.userLogged)});
         })
         .catch(err => {
             console.log('BIG GIGANT ERROR: ' + err);
@@ -38,11 +38,11 @@ exports.post = async function (req, res) {
         content = post.content;
         //console.log(userPosts);
     }
-    res.render('post',{title: title,user: userName, creationDate: date, postContent: content});
+    res.render('post',{title: title,user: userName, creationDate: date, postContent: content, data: validation.validateCookie(req.cookies.userLogged)});
 }
 
 exports.create = async function(req, res) {
-    res.render('createPost', {title: 'Create a Post'})
+    res.render('createPost', {title: 'Create a Post', data: validation.validateCookie(req.cookies.userLogged)})
 }
 
 exports.submit = async function(req, res) {

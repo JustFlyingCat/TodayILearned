@@ -4,7 +4,7 @@ const accManController = require('../controller/accountManagementController');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Today i learned' });
+  res.render('index', { title: 'Today i learned', data: validation.validateCookie(req.cookies.userLogged)});
 });
 
 router.get('/login', accManController.login);
