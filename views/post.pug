@@ -5,3 +5,7 @@ block content
     h1= title
     p(class="time") from #[a(href='/users/' + user) #{user}] at #{creationDate}
     p(class="content")= postContent
+    if data 
+      if data.currentUsername == user 
+        form(method="post")
+          input(type="submit" onclick="confirm('Do you want to delete the post?')" value="delete")

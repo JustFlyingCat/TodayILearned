@@ -61,6 +61,20 @@ exports.submit = async function(req, res) {
     res.redirect('/posts/' + post.userId + '-' + post.id);
 }
 
+exports.deletePost = async function(req, res) {
+    console.log('delete post ' + req.params.postId + ' of user ' + req.params.userId);
+    // get the current user
+    const data = await validation.validateCookie(req.cookies.userLogged);
+    if (data) {
+        const user = await User.findOne({where: {userName: data.currentUsername}});
+        if (data.currentUsername == user.userName) {
+            const post = await Post.findOne({where: {id: req.params.postId, userId: user.id}});
+            await post.destroy()
+            res.redirect('/posts/')
+        }
+    }
+}
+
 function associate(){
     //Setting relations between the tables 
     User.hasMany(Post);
