@@ -1,0 +1,19 @@
+extends layout
+
+block content  
+    h1= title
+    p(class="errMessage") #{errMessage}
+    form(method='post')
+        label(for="username") Username:
+        br
+        input(type="text", name="username", size="24", maxlength="16")
+        br
+        label(for="password") password:
+        br
+        input(type="password", name="password", maxlength="64", size="24")
+        br
+        label(for="confPassword") confirm password:
+        br
+        input(type="password", name="confPassword", maxlength="64", size="24")
+        br
+        input(type="submit" value="login")

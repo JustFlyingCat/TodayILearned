@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false
         },
         cookieId: {
-            type: DataTypes.UUID,
+            type: DataTypes.STRING,
             unique: true
         }
     });

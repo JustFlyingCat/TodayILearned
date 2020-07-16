@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../database/maxtest').createSequelize();
+const validation = require('./validation');
 const users = require('../models/user');
 const posts = require('../models/post');
 const User = users(sequelize, DataTypes);
@@ -7,8 +8,9 @@ const Post = posts(sequelize, DataTypes);
 
 exports.index = async function (req, res) {
     User.findAll()
-        .then(ans => {
-            res.render('user', {title: 'All Users', des: 'Total registered users: ' + ans.length, list: ans, data: validation.validateCookie(req.cookies.userLogged)});
+        .then(async function(ans) {
+            const data = await validation.validateCookie(req.cookies.userLogged);
+            res.render('user', {title: 'All Users', des: 'Total registered users: ' + ans.length, list: ans, data: data});
         })
         .catch(err => {
             console.log('BIG GIGANT ERROR: ' + err);
@@ -37,5 +39,6 @@ exports.user = async function (req, res) {
         list = userPosts;
         //console.log(userPosts);
     }
-    res.render('user',{title: title, des: ans, list: list, data: validation.validateCookie(req.cookies.userLogged)});
+    const data = await validation.validateCookie(req.cookies.userLogged);
+    res.render('user',{title: title, des: ans, list: list, data: data});
 }

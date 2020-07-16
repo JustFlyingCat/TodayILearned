@@ -17,7 +17,7 @@ exports.validate = async function(userName, userPassword) {
 }
 
 exports.getUserCookie = async function(userName, userPassword) {
-    const user = await User.findOne({where: {userName: userName, password: userPassword}})
+    const user = await User.findOne({where: {userName: userName, password: userPassword}});
 
     if (user) {
         return user.cookieId;
@@ -28,11 +28,14 @@ exports.getUserCookie = async function(userName, userPassword) {
 
 exports.validateCookie = async function(CookieValue) {
     let validation = false;
+    let userName;
 
-    const user = await User.findOne({where: {cookieId: CookieValue}});
-
-    if (user) {
-        validation = true;
+    if (CookieValue) {
+        const user = await User.findOne({where: {cookieId: CookieValue}});
+        if (user) {
+            validation = true;
+            userName = user.userName;
+        }
     }
-    return {logged: validation, currentUsername: user.userName};
+    return {logged: validation, currentUsername: userName};
 }

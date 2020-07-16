@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../database/maxtest').createSequelize();
+const validation = require('./validation');
 const users = require('../models/user');
 const posts = require('../models/post');
 const User = users(sequelize, DataTypes);
@@ -10,8 +11,9 @@ exports.index = async function (req, res) {
     associate();
 
     Post.findAll({include: User})
-        .then(ans => {
-            res.render('post-listing', {title: 'All Posts', des: 'Total posts: ' + ans.length, list: ans, data: validation.validateCookie(req.cookies.userLogged)});
+        .then(async function(ans) {
+            const data = await validation.validateCookie(req.cookies.userLogged);
+            res.render('post-listing', {title: 'All Posts', des: 'Total posts: ' + ans.length, list: ans, data: data});
         })
         .catch(err => {
             console.log('BIG GIGANT ERROR: ' + err);
@@ -38,11 +40,13 @@ exports.post = async function (req, res) {
         content = post.content;
         //console.log(userPosts);
     }
-    res.render('post',{title: title,user: userName, creationDate: date, postContent: content, data: validation.validateCookie(req.cookies.userLogged)});
+    const data = await validation.validateCookie(req.cookies.userLogged);
+    res.render('post',{title: title,user: userName, creationDate: date, postContent: content, data: data});
 }
 
 exports.create = async function(req, res) {
-    res.render('createPost', {title: 'Create a Post', data: validation.validateCookie(req.cookies.userLogged)})
+    const data = await validation.validateCookie(req.cookies.userLogged);
+    res.render('createPost', {title: 'Create a Post', data: data})
 }
 
 exports.submit = async function(req, res) {

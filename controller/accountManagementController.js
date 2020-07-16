@@ -5,7 +5,7 @@ const users = require('../models/user');
 const User = users(sequelize, DataTypes);
 
 exports.login = function(req, res) {
-    res.render('login', {title: 'login'});
+    res.render('login', {title: 'login', data: {logged: false}});
 }
 
 exports.handleLogin = async function(req, res) {
@@ -17,19 +17,29 @@ exports.handleLogin = async function(req, res) {
         let date = new Date();
         let futDate = date.getDate() + 14;
         date.setDate(futDate);
-        res.cookie('userLogged', 'sOmErAnDoMnUmBeR', {httpOnly: true, expires: date});
+        const cookieId = await validation.getUserCookie(userName, userPassword);
+        res.cookie('userLogged', cookieId, {httpOnly: true, expires: date});
         res.redirect('/');
     } else {
-        res.render('login', {title: 'login', errMessage: 'Wrong username or password', data: validation.validateCookie(req.cookies.userLogged)});
+        const data = await validation.validateCookie(req.cookies.userLogged);
+        res.render('login', {title: 'login', errMessage: 'Wrong username or password', data: data});
     }
 }
 
 exports.loggout = function(req, res) {
-
+    res.cookie('userLogged', '', {maxAge: 0});
+    res.redirect('/');
 }
 
-function associate(){
-    //Setting relations between the tables 
-    User.hasMany(Post);
-    Post.belongsTo(User);
+exports.createUser = async function(req, res) {
+    const data = await validation.validateCookie(req.cookies.userLogged)
+    if (data.logged) {
+        res.redirect('/');
+    } else {
+        res.render('createUser', {title: 'Create user', data: data})
+    }
+}
+
+exports.createUserPost = function(req, res) {
+    
 }
