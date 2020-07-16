@@ -71,6 +71,8 @@ exports.deletePost = async function(req, res) {
             const post = await Post.findOne({where: {id: req.params.postId, userId: user.id}});
             await post.destroy()
             res.redirect('/posts/')
+        } else {
+            res.render('error',{title: 'CANT DELETE', message: 'Cant delete post of other user'})
         }
     }
 }
