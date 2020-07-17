@@ -3,8 +3,8 @@ const posts = require('../models/post');
 const users = require('../models/user');
 
 exports.createSequelize = function() {
-    const sequelize = new Sequelize('maxtest', 'root', '', {
-        host: 'localhost',
+    const sequelize = new Sequelize(process.env.DB_DB, process.env.DB_USER, process.env.DB_PASSWORD, {
+        host: process.env.DB_HOST,
         dialect: 'mariadb'
     });
     sequelize.authenticate()
