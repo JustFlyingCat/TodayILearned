@@ -4,7 +4,7 @@ block content
   div(class="middle")
     h1= title
     p(class="time") from #[a(href='/users/' + user) #{user}] at #{creationDate}
-    p(class="content")= postContent
+    pre(class="content")= postContent
     if data 
       if data.currentUsername == user 
         form(method="post")

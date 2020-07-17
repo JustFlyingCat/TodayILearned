@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../database/maxtest').createSequelize();
+const sequelize = require('../database/database').createSequelize();
 const validation = require('./validation');
 const users = require('../models/user');
 const posts = require('../models/post');
