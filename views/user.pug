@@ -6,7 +6,7 @@ block content
   if list
     ul
       each val in list
-        li
+        li(class="list")
           if val.userName
             a(href='/users/' + val.userName) #{val.userName}
           else if val.headline

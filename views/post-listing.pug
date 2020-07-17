@@ -6,6 +6,6 @@ block content
   if list
     ul
       each val in list
-        li
+        li(class="list")
             a(href='/posts/' + val.userId + '-' + val.id) #{val.headline} 
             p(class="time") created by #[a(href='/users/' + val.user.userName) #{val.user.userName}] at: #{val.createdAt}
