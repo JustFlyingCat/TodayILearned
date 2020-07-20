@@ -1,6 +1,7 @@
 FROM node
-
-CMD node ./bin/www
+COPY . /app
+RUN make /app
+CMD node /app/bin/www
 
 EXPOSE 3000
 EXPOSE 3306
