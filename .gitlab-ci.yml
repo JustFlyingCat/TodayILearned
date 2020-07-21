@@ -3,11 +3,11 @@ stages:
   - deploy
 package_app:
   stage: package
-  image: node
+  image: docker-hub.sandstorm.de/docker-infrastructure/php-app/build:7.1-v1
   script:
     - docker info
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - npm install
+    - yarn
     - docker build -t $CI_REGISTRY_IMAGE:$CI_BUILD_REF_SLUG .
     - docker push $CI_REGISTRY_IMAGE:$CI_BUILD_REF_SLUG
   only:
