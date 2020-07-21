@@ -11,7 +11,7 @@ package_app:
     - docker build -t $CI_REGISTRY_IMAGE:$CI_BUILD_REF_SLUG .
     - docker push $CI_REGISTRY_IMAGE:$CI_BUILD_REF_SLUG
   only:
-    - deploy
+    - master
   tags:
     - docker
     - privileged
