@@ -8,4 +8,4 @@ block content
     if data 
       if data.currentUsername == user 
         form(method="post")
-          input(type="submit" onclick="confirm('Do you want to delete the post?')" value="delete")
+          input(type="submit" onclick="return confirm('Do you want to delete the post?')" value="delete")
