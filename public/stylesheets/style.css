@@ -42,8 +42,8 @@ textarea {
 /*display stuff in the middle of the site*/
 .middle {
   text-align: center;
-  margin-left: 800px;
-  margin-right: 800px;
+  margin-left: 30vw;
+  margin-right: 30vw;
 }
 /*post content format*/
 .content {
