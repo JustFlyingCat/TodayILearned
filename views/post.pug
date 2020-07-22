@@ -8,4 +8,8 @@ block content
     if data 
       if data.currentUsername == user 
         form(method="post")
+          input(type="hidden" name="type" value="edit")
+          input(type ="submit" body="edit" value="edit")
+        form(method="post")
+          input(type="hidden" name="type" value="delete")
           input(type="submit" onclick="return confirm('Do you want to delete the post?')" value="delete")

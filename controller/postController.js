@@ -46,7 +46,7 @@ exports.create = async function(req, res) {
     if(!data.logged) {
         res.redirect('../login');
     } else {
-        res.render('createPost', {title: 'Create a Post', data: data});
+        res.render('createEditPost', {title: 'Create a Post', data: data});
     }
 }
 
@@ -61,19 +61,59 @@ exports.submit = async function(req, res) {
     res.redirect('/posts/' + post.userId + '-' + post.id);
 }
 
+exports.postPost = function(req, res) {
+    if(req.body.type == 'edit') {
+        res.redirect('./' +req.params.userId + '-' + req.params.postId + '/edit');
+    } else if (req.body.type == 'delete') {
+        exports.deletePost(req, res);
+    } else {
+        res.redirect('/');
+        console.log('desired user action for post was not found')
+    }
+}
+
 exports.deletePost = async function(req, res) {
     console.log('delete post ' + req.params.postId + ' of user ' + req.params.userId);
     // get the current user
     const data = await validation.validateCookie(req.cookies.userLogged);
     if (data) {
         const user = await User.findOne({where: {userName: data.currentUsername}});
-        if (data.currentUsername == user.userName) {
-            const post = await Post.findOne({where: {id: req.params.postId, userId: user.id}});
-            await post.destroy()
-            res.redirect('/posts/')
+        const post = await Post.findOne({where: {id: req.params.postId, userId: user.id}});
+        await post.destroy()
+        res.redirect('/posts/')
+    } else {
+        res.render('error',{title: 'CANT DELETE', message: 'Cant delete posts when not logged in'})
+    }
+}
+
+exports.editPost = async function(req, res) {
+    const data = await validation.validateCookie(req.cookies.userLogged);
+    if(data) {
+        const user = await User.findOne({where: {userName: data.currentUsername}});
+        const post = await Post.findOne({where: {id: req.params.postId, userId: user.id}});
+        if (req.method == 'GET') {
+            //Get the edit website
+            res.render('createEditPost', {title: 'Edit a Post', preContent: post.content, preHeadline: post.headline, data: data})
+        } else if (req.method == 'POST') {
+            //Change post content through post request
+            console.log('edit post ' + req.params.postId + ' of user ' + req.params.userId);
+            //change headline in DB if it changed
+            if (post.headline != req.body.headline) {
+                post.headline = req.body.headline;
+            }
+            //change content in DB if it changed
+            if (post.content != req.body.content) {
+                post.content = req.body.content;
+            }
+            //sync the post to the DB
+            post.save();
+            //redirect back to post
+            res.redirect('../' + req.params.userId + '-' + req.params.postId);
         } else {
-            res.render('error',{title: 'CANT DELETE', message: 'Cant delete post of other user'})
+            res.render('error', {title: 'OOPS', message: 'oops, something went wrong'})
         }
+    } else {
+        res.render('error',{title: 'CANT EDIT', message: 'Cant edit posts when not logged in'})
     }
 }
 
