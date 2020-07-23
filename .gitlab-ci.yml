@@ -3,7 +3,7 @@ stages:
   - deploy
 package_app:
   stage: package
-  image: docker-hub.sandstorm.de/docker-infrastructure/php-app/build:7.1-v1
+  image: docker:git
   script:
     - docker info
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
