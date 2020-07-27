@@ -17,3 +17,30 @@ package_app:
   cache:
     paths:
       - node_modules
+
+deploy_production:
+  stage: deploy
+  image:
+    # Als Basis-Image nehmen wir eins mit kubectl - Kubernetes Control
+    name: bitnami/kubectl:1.15.0
+    entrypoint: [""]
+  # Den Job muss man per Hand starten, weil ich vorher gerne ein Review machen will.
+  # In gaaaanz ungünstigen Fällen geht sonst vielleicht sandstorm.de offline oder so.
+  when: manual
+  environment:
+    name: production
+  script:
+    # Als erstes versuchen wir den Namespace zu laden. Den habe ich per Hand erstellt.
+    # Ist der nicht da, können wir nicht deployen.
+    - kubectl get namespace til-max
+    # Hier laden wir Konfiguration aus einer Projektdatei in den Kubernetes-Cluster hoch.
+    # In der Datei muss alles stehen, was Kubernetes braucht, um das App zu starten.
+    # In unserem Fall ist das sehr wenig, weil wir das App-Deployment mit den beiden eigenen
+    # Operatorn stark automatisiert haben.
+    - kubectl apply -f deployment/app.yaml
+    # Wenn sich die Konfig nicht geändert hat, freut sich Kubernetes, dass es nichts zu tun gibt.
+    # Dann wird aber auch nicht das neue Image til-max:master geladen. Daher updaten wir immer
+    # eine interne Versionsnummer, die sonst für das Deployment keine Bedeutung hat.
+    # Die ID von dem aktuellen GitLab Job wird genommen (Achtung: das ist nicht der Name des Job in der .gitlab-ci),
+    # sondern zBsp: https://gitlab.sandstorm.de/sandstorm-labs/til-von-max/-/jobs/66121
+    - 'kubectl -n til-max patch --type merge OneContainerOnePort app -p "{\"spec\":{\"releaseIdentifier\": \"$CI_JOB_ID\"}}"'
